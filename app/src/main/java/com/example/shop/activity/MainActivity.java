@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
@@ -22,8 +23,11 @@ import android.widget.ViewFlipper;
 import com.bumptech.glide.Glide;
 import com.example.shop.R;
 import com.example.shop.adapter.LoaiSanPhamAdapter;
+import com.example.shop.adapter.SanPhamMoiAdapter;
 import com.example.shop.model.LoaiSPModel;
 import com.example.shop.model.LoaiSanPham;
+import com.example.shop.model.SanPhamMoi;
+import com.example.shop.model.SanPhamMoiModel;
 import com.example.shop.retrofit.APIShop;
 import com.example.shop.retrofit.RetrofitClient;
 import com.example.shop.utils.Utils;
@@ -49,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
     List<LoaiSanPham> sanPhams;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
     APIShop apiShop;
+    List<SanPhamMoi> sanPhamMois;
+    SanPhamMoiAdapter sanPhamMoiAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,12 +64,31 @@ public class MainActivity extends AppCompatActivity {
         ActionBar();
 
         if(isConnected(this)){
-            Toast.makeText(getApplicationContext(),"ok",Toast.LENGTH_LONG).show();
+//            Toast.makeText(getApplicationContext(),"ok",Toast.LENGTH_LONG).show();
             ActionViewFlipper();
             GetLoaiSanPham();
+            getSpMoi();
         }else{
             Toast.makeText(getApplicationContext(),"Not Internet",Toast.LENGTH_LONG).show();
         }
+    }
+
+    private void getSpMoi() {
+        compositeDisposable.add(apiShop.getSpMoi()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        sanPhamMoiModel -> {
+                            if(sanPhamMoiModel.isSuccess()){
+                                sanPhamMois = sanPhamMoiModel.getResult();
+                                sanPhamMoiAdapter = new SanPhamMoiAdapter(getApplicationContext(),sanPhamMois);
+                                recyclerView.setAdapter(sanPhamMoiAdapter);
+                            }
+                        },
+                        throwable -> {
+                            Toast.makeText(getApplicationContext(),"Not Internet"+throwable.getMessage(),Toast.LENGTH_LONG).show();
+                        }
+                ));
     }
 
     private void GetLoaiSanPham() {
@@ -73,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
             .subscribe(
                     loaiSPModel -> {
                         if(loaiSPModel.isSuccess()){
-//                            Toast.makeText(getApplicationContext(),loaiSPModel.getResult().get(0).getTensanpham(),Toast.LENGTH_LONG).show();
+// câu lệnh này để hiển thị ra màn hình  Toast.makeText(getApplicationContext(),loaiSPModel.getResult().get(0).getTensanpham(),Toast.LENGTH_LONG).show();
                         sanPhams = loaiSPModel.getResult();
                             // khoi  tap adapter
                             loaiSanPhamAdapter = new LoaiSanPhamAdapter(getApplicationContext(),sanPhams);
@@ -118,11 +143,15 @@ public class MainActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbarmanhinhchinh);
         viewFlipper= findViewById(R.id.viewlipper);
         recyclerView = findViewById(R.id.recycleview);
+        RecyclerView.LayoutManager layoutManager= new GridLayoutManager(this,2);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setHasFixedSize(true);
         navigationView = findViewById(R.id.navigationview);
         listViewManHinhChinh = findViewById(R.id.listviewmanhinhchinh);
         drawerLayout = findViewById(R.id.drawerlayout);
         //khoi tao list
         sanPhams = new ArrayList<>();
+        sanPhamMois = new ArrayList<>();
 
     }
     private boolean isConnected(Context context){

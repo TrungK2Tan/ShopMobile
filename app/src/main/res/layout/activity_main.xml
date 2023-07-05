@@ -21,7 +21,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="#ff00dfff"
-                app:title="Trang Chu">
+                app:title="Trang Chủ">
 
             </androidx.appcompat.widget.Toolbar>
 
@@ -41,7 +41,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:text="San Pham"
+                    android:text="Sản Phẩm Mới"
                     android:textColor="@android:color/holo_red_light"
                     android:textSize="20sp"
                     android:textStyle="bold" />
