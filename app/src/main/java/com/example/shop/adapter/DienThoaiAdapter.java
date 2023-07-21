@@ -1,6 +1,7 @@
 package com.example.shop.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.shop.Interface.ItemClickListener;
 import com.example.shop.R;
+import com.example.shop.activity.ChiTietActivity;
 import com.example.shop.model.SanPhamMoi;
 
 import org.w3c.dom.Text;
@@ -32,10 +35,6 @@ public class DienThoaiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         this.array = array;
     }
 
-
-
-
-
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -53,12 +52,24 @@ public class DienThoaiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         if(holder instanceof MyViewHolder){
             MyViewHolder myViewHolder = (MyViewHolder) holder;
             SanPhamMoi sanPhamMoi = array.get(position);
-            myViewHolder.tensp.setText(sanPhamMoi.getTensp());
+            myViewHolder.tensp.setText(sanPhamMoi.getTensp().trim());
             DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
             myViewHolder.giasp.setText("Giá:"+decimalFormat.format(Double.parseDouble(sanPhamMoi.getGiasp()))+"Đ");
             myViewHolder.mota.setText(sanPhamMoi.getMota());
             myViewHolder.idsp.setText(sanPhamMoi.getId_sanphammoi()+"");
             Glide.with(context).load(sanPhamMoi.getHinhsp()).into(myViewHolder.imghinhanh);
+            myViewHolder.setItemClickListener(new ItemClickListener() {
+                @Override
+                public void onClick(View view, int pos, boolean isLongClick) {
+                    if(!isLongClick){
+                        // click
+                        Intent intent = new Intent(context, ChiTietActivity.class);
+                        intent.putExtra("chitiet",sanPhamMoi);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        context.startActivity(intent);
+                    }
+                }
+            });
         }else{
             LoadingViewHolder loadingViewHolder = (LoadingViewHolder) holder;
             loadingViewHolder.progressbar.setIndeterminate(true);
@@ -83,10 +94,11 @@ public class DienThoaiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder{
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView tensp,giasp,mota,idsp;
         ImageView imghinhanh;
+        private ItemClickListener itemClickListener;
         public MyViewHolder(@NonNull View itemView){
             super(itemView);
             tensp = itemView.findViewById(R.id.itemdt_ten);
@@ -94,7 +106,17 @@ public class DienThoaiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             mota = itemView.findViewById(R.id.itemdt_mota);
             idsp = itemView.findViewById(R.id.itemdt_idsp);
             imghinhanh = itemView.findViewById(R.id.itemdt_image);
+            itemView.setOnClickListener(this);
 
+        }
+
+        public void setItemClickListener(ItemClickListener itemClickListener) {
+            this.itemClickListener = itemClickListener;
+        }
+
+        @Override
+        public void onClick(View view) {
+            itemClickListener.onClick(view,getAdapterPosition(),false);
         }
     }
 }

@@ -93,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case 2:
                         Intent laptop = new Intent(getApplicationContext(), LaptopActivity.class);
+                        laptop.putExtra("loai",2);
                         startActivity(laptop);
                         break;
 

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Shop</string>
+    <string name="gia_250000d">Gia: 250000d</string>
+    <string name="th_m_v_o_gi_h_ng">Thêm vào giỏ hàng</string>
 </resources>
