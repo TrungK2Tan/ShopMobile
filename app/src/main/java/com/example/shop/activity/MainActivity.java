@@ -181,6 +181,9 @@ public class MainActivity extends AppCompatActivity {
         //khoi tao list
         sanPhams = new ArrayList<>();
         sanPhamMois = new ArrayList<>();
+        if(Utils.gioHangs == null){
+            Utils.gioHangs = new ArrayList<>();
+        }
 
     }
     private boolean isConnected(Context context){
