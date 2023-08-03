@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -35,6 +36,7 @@ import com.example.shop.retrofit.APIShop;
 import com.example.shop.retrofit.RetrofitClient;
 import com.example.shop.utils.Utils;
 import com.google.android.material.navigation.NavigationView;
+import com.nex3z.notificationbadge.NotificationBadge;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
     APIShop apiShop;
     List<SanPhamMoi> sanPhamMois;
     SanPhamMoiAdapter sanPhamMoiAdapter;
+    NotificationBadge badge;
+    FrameLayout frameLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -178,13 +182,36 @@ public class MainActivity extends AppCompatActivity {
         navigationView = findViewById(R.id.navigationview);
         listViewManHinhChinh = findViewById(R.id.listviewmanhinhchinh);
         drawerLayout = findViewById(R.id.drawerlayout);
+        badge = findViewById(R.id.menu_sl);
+        frameLayout = findViewById(R.id.framegiohang);
         //khoi tao list
         sanPhams = new ArrayList<>();
         sanPhamMois = new ArrayList<>();
         if(Utils.gioHangs == null){
             Utils.gioHangs = new ArrayList<>();
+        }else{
+            int totalitem = 0;
+            for(int i=0;i<Utils.gioHangs.size();i++){
+                totalitem = totalitem+ Utils.gioHangs.get(i).getSoluong();
+            }
+            badge.setText(String.valueOf(totalitem));
         }
+        frameLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent giohang = new Intent(getApplicationContext(),GioHangActivity.class);
+                startActivity(giohang);
+            }
+        });
 
+    }
+    protected  void onResume(){
+        super.onResume();
+        int totalitem = 0;
+        for(int i=0;i<Utils.gioHangs.size();i++){
+            totalitem = totalitem+ Utils.gioHangs.get(i).getSoluong();
+        }
+        badge.setText(String.valueOf(totalitem));
     }
     private boolean isConnected(Context context){
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);

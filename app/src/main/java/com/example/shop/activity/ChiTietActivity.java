@@ -2,11 +2,13 @@ package com.example.shop.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.icu.util.ULocale;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -83,7 +85,11 @@ public class ChiTietActivity extends AppCompatActivity {
             gioHang.setTensp(sanPhamMoi.getTensp());
             Utils.gioHangs.add(gioHang);
         }
-        badge.setText(String.valueOf(Utils.gioHangs.size()));
+        int totalitem = 0;
+        for(int i=0;i<Utils.gioHangs.size();i++){
+            totalitem = totalitem+ Utils.gioHangs.get(i).getSoluong();
+        }
+        badge.setText(String.valueOf(totalitem));
     }
 
     private void initData(){
@@ -106,8 +112,20 @@ public class ChiTietActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         btnthem = findViewById(R.id.btnthemvaogiohang);
         badge = findViewById(R.id.menu_sl);
+        FrameLayout framegiohang = findViewById(R.id.framegiohang);
+        framegiohang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent giohang = new Intent(getApplicationContext(), GioHangActivity.class);
+                startActivity(giohang);
+            }
+        });
         if(Utils.gioHangs != null){
-            badge.setText(String.valueOf(Utils.gioHangs.size()));
+            int totalitem = 0;
+            for(int i=0;i<Utils.gioHangs.size();i++){
+                totalitem = totalitem+ Utils.gioHangs.get(i).getSoluong();
+            }
+            badge.setText(String.valueOf(totalitem));
         }
     }
     private void ActionToolBar(){
@@ -119,5 +137,17 @@ public class ChiTietActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(Utils.gioHangs != null){
+            int totalitem = 0;
+            for(int i=0;i<Utils.gioHangs.size();i++){
+                totalitem = totalitem+ Utils.gioHangs.get(i).getSoluong();
+            }
+            badge.setText(String.valueOf(totalitem));
+        }
     }
 }
