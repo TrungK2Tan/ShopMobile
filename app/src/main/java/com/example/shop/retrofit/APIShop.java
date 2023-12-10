@@ -44,4 +44,16 @@ public interface APIShop {
     Observable<TaiKhoanModel> resetPass(
             @Field("email") String email
     );
+    @POST("donhang.php")
+    @FormUrlEncoded
+    Observable<TaiKhoanModel> createOrder(
+            @Field("email") String email,
+            @Field("sodienthoai") String sodienthoai,
+            @Field("tongtien") String tongtien,
+            @Field("idtaikhoan") int idtaikhoan,
+            @Field("diachi") String diachi,
+            @Field("soluong") int soluong,
+            @Field("chitiet") String chitiet
+    );
+
 }
