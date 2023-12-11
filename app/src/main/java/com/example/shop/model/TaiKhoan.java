@@ -1,18 +1,18 @@
 package com.example.shop.model;
 
 public class TaiKhoan {
-    int id;
+    int id_taikhoan;
     String email;
     String pass;
     String username;
     String mobile;
 
     public int getId() {
-        return id;
+        return id_taikhoan;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.id_taikhoan = id;
     }
 
     public String getEmail() {

@@ -1,5 +1,6 @@
 package com.example.shop.retrofit;
 
+import com.example.shop.model.DonHangModel;
 import com.example.shop.model.LoaiSPModel;
 import com.example.shop.model.SanPhamMoiModel;
 import com.example.shop.model.TaiKhoanModel;
@@ -55,5 +56,9 @@ public interface APIShop {
             @Field("soluong") int soluong,
             @Field("chitiet") String chitiet
     );
-
+    @POST("xemdonhang.php")
+    @FormUrlEncoded
+    Observable<DonHangModel> xemDonHang(
+            @Field("idtaikhoan") int id
+    );
 }
