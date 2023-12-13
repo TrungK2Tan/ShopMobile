@@ -61,4 +61,9 @@ public interface APIShop {
     Observable<DonHangModel> xemDonHang(
             @Field("idtaikhoan") int id
     );
+    @POST("timkiem.php")
+    @FormUrlEncoded
+    Observable<SanPhamMoiModel> search(
+            @Field("search") String search
+    );
 }
