@@ -45,8 +45,8 @@ public class ThanhToanActivity extends AppCompatActivity {
 
     private void countItem() {
          totalitem = 0;
-        for(int i=0;i<Utils.gioHangs.size();i++){
-            totalitem = totalitem+ Utils.gioHangs.get(i).getSoluong();
+        for(int i=0;i<Utils.muahangne.size();i++){
+            totalitem = totalitem+ Utils.muahangne.get(i).getSoluong();
         }
     }
 
@@ -75,13 +75,14 @@ public class ThanhToanActivity extends AppCompatActivity {
                     String str_email = Utils.taiKhoan_current.getEmail();
                     String str_sodienthoai = Utils.taiKhoan_current.getMobile();
                   int idtaikhoan = Utils.taiKhoan_current.getId();
-                    Log.d("test",new Gson().toJson(Utils.gioHangs));
-                    compositeDisposable.add(apiShop.createOrder(str_email,str_sodienthoai,String.valueOf(tongtiensp),idtaikhoan,str_diachi,totalitem,new Gson().toJson(Utils.gioHangs))
+                    Log.d("test",new Gson().toJson(Utils.muahangne));
+                    compositeDisposable.add(apiShop.createOrder(str_email,str_sodienthoai,String.valueOf(tongtiensp),idtaikhoan,str_diachi,totalitem,new Gson().toJson(Utils.muahangne))
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(
                                     taiKhoanModel -> {
                                         Toast.makeText(getApplicationContext(),"Thanh Cong",Toast.LENGTH_SHORT).show();
+                                        Utils.muahangne.clear();
                                         Intent intent = new Intent(getApplicationContext(),MainActivity.class);
                                         startActivity(intent);
                                         finish();
