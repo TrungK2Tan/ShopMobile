@@ -32,6 +32,7 @@ import com.example.shop.model.LoaiSPModel;
 import com.example.shop.model.LoaiSanPham;
 import com.example.shop.model.SanPhamMoi;
 import com.example.shop.model.SanPhamMoiModel;
+import com.example.shop.model.TaiKhoan;
 import com.example.shop.retrofit.APIShop;
 import com.example.shop.retrofit.RetrofitClient;
 import com.example.shop.utils.Utils;
@@ -41,6 +42,7 @@ import com.nex3z.notificationbadge.NotificationBadge;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.paperdb.Paper;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Scheduler;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
@@ -68,6 +70,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         apiShop = RetrofitClient.getInstance(Utils.BASE_URL).create(APIShop.class);
+        Paper.init(this);
+        if(Paper.book().read("user")!=null){
+            TaiKhoan taiKhoan = Paper.book().read("user");
+            Utils.taiKhoan_current = taiKhoan;
+        }
         Anhxa();
         ActionBar();
 
@@ -105,6 +112,12 @@ public class MainActivity extends AppCompatActivity {
                         Intent donhang = new Intent(getApplicationContext(), XemDonActivity.class);
                         startActivity(donhang);
                         break;
+                    case 6:
+                        Paper.book().delete("user");
+                        Intent dangnhap = new Intent(getApplicationContext(), DangNhapActivity.class);
+                        startActivity(dangnhap);
+                        finish();
+                        break;
 
                 }
             }
@@ -138,6 +151,7 @@ public class MainActivity extends AppCompatActivity {
                         if(loaiSPModel.isSuccess()){
 // câu lệnh này để hiển thị ra màn hình  Toast.makeText(getApplicationContext(),loaiSPModel.getResult().get(0).getTensanpham(),Toast.LENGTH_LONG).show();
                         sanPhams = loaiSPModel.getResult();
+                        sanPhams.add(new LoaiSanPham("Dang Xuat","http://mauweb.monamedia.net/thegioididong/wp-content/uploads/2017/12/banner-big-ky-nguyen-800-300.jpg"));
                             // khoi  tap adapter
                             loaiSanPhamAdapter = new LoaiSanPhamAdapter(getApplicationContext(),sanPhams);
                             listViewManHinhChinh.setAdapter(loaiSanPhamAdapter);
