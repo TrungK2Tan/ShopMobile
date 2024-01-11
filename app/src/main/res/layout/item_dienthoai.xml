@@ -43,7 +43,8 @@
                 android:gravity="center"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:text="Gia:250000d"
+                android:text="Gia: 250.000đ"
+                android:textColor="#FA0303"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
             <TextView
@@ -51,7 +52,7 @@
                 android:gravity="center"
                 android:textSize="14sp"
                 android:textStyle="bold"
-                android:text="Mo ta:"
+                android:text="Mô tả"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </LinearLayout>

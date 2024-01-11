@@ -28,7 +28,7 @@
         app:layout_constraintTop_toBottomOf="@+id/line1"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:background="@drawable/background_button"
+        android:background="#38a7ff"
         android:layout_marginTop="25dp"
         android:text="Quên mật khẩu"
         android:textColor="@android:color/white"

@@ -20,7 +20,7 @@
                 android:id="@+id/toolbarmanhinhchinh"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="#04CBE8"
+                android:background="#38a7ff"
                 app:title="Trang Chủ">
                 <LinearLayout
                     android:orientation="horizontal"
@@ -63,7 +63,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#65B0EC"
+                android:background="#8F38A7FF"
                 android:orientation="vertical">
                 <TextView
                     android:layout_width="wrap_content"
@@ -71,8 +71,8 @@
                     android:layout_marginLeft="10dp"
                     android:text="Sản Phẩm Mới"
                     android:layout_gravity="center"
-                    android:textColor="@android:color/holo_red_light"
-                    android:textSize="20sp"
+                    android:textColor="#F64C4C"
+                    android:textSize="22sp"
                     android:textStyle="bold" />
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_marginTop="10dp"

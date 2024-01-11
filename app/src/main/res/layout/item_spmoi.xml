@@ -31,7 +31,7 @@
                 android:layout_height="wrap_content"/>
             <TextView
                 android:id="@+id/itemsp_gia"
-                android:text="Gia:250000d"
+                android:text="Giá: 250.000đ"
                 android:textSize="15dp"
                 android:textColor="@android:color/holo_red_light"
                 android:textStyle="bold"

@@ -9,8 +9,8 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         app:title="Điện Thoại"
-
-        android:background="#B2B4C1"
+        android:background="#38a7ff"
+        android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize">

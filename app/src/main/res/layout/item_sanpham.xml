@@ -15,8 +15,9 @@
         android:id="@+id/item_tensp"
         android:textSize="15sp"
         android:layout_marginLeft="10dp"
-        android:text="Dien Thoai"
-        android:textColor="@android:color/holo_red_light"
+        android:text="Điện thoại"
+        android:textColor="@color/black"
+        android:textStyle="bold"
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>

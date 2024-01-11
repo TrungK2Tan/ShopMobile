@@ -7,14 +7,14 @@
     tools:context=".activity.SearchActivity">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarsearch"
-        app:title="Tim Kiem"
-        android:background="#B2B4C1"
+        app:title="Tìm Kiếm"
+        android:background="#38a7ff"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize">
     </androidx.appcompat.widget.Toolbar>
     <EditText
-        android:hint="Nhap SP CAN TIM DI"
+        android:hint="Nhập sản phẩm cần tìm"
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"

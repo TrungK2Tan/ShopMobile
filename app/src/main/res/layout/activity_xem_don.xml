@@ -7,8 +7,8 @@
     tools:context=".activity.XemDonActivity">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbardonhang"
-        app:title="Xem lich su mua hang"
-        android:background="#B2B4C1"
+        app:title="Xem lịch sử mua hàng"
+        android:background="#38a7ff"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize">
